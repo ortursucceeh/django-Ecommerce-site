@@ -353,6 +353,31 @@
         "documentation": {}
     },
     {
+        "label": "carts.views",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "detail": "carts.views",
+        "documentation": {}
+    },
+    {
+        "label": "_cart_id",
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "isExtraImport": true,
+        "detail": "carts.views",
+        "documentation": {}
+    },
+    {
+        "label": "_cart_id",
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "isExtraImport": true,
+        "detail": "carts.views",
+        "documentation": {}
+    },
+    {
         "label": "Product",
         "importPath": "store.models",
         "description": "store.models",
@@ -506,14 +531,6 @@
         "documentation": {}
     },
     {
-        "label": "_cart_id",
-        "importPath": "carts.views",
-        "description": "carts.views",
-        "isExtraImport": true,
-        "detail": "carts.views",
-        "documentation": {}
-    },
-    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
@@ -583,6 +600,15 @@
         "description": "carts.apps",
         "peekOfCode": "class CartsConfig(AppConfig):\n    default_auto_field = \"django.db.models.BigAutoField\"\n    name = \"carts\"",
         "detail": "carts.apps",
+        "documentation": {}
+    },
+    {
+        "label": "counter",
+        "kind": 2,
+        "importPath": "carts.context_processors",
+        "description": "carts.context_processors",
+        "peekOfCode": "def counter(request):\n    cart_count = 0\n    if 'admin' in request.path:\n        return {}\n    else:\n        try:\n            cart = Cart.objects.filter(cart_id=_cart_id(request))\n            cart_items = CartItem.objects.all().filter(cart=cart[:1])\n            for cart_item in cart_items:\n                cart_count += cart_item.quantity",
+        "detail": "carts.context_processors",
         "documentation": {}
     },
     {
@@ -687,10 +713,10 @@
     {
         "label": "menu_links",
         "kind": 2,
-        "importPath": "category.contest_processors",
-        "description": "category.contest_processors",
+        "importPath": "category.context_processors",
+        "description": "category.context_processors",
         "peekOfCode": "def menu_links(request):\n    links = Category.objects.all()\n    return dict(links=links)",
-        "detail": "category.contest_processors",
+        "detail": "category.context_processors",
         "documentation": {}
     },
     {
