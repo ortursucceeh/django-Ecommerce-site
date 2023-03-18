@@ -288,6 +288,14 @@
         "documentation": {}
     },
     {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
         "label": "redirect",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -296,7 +304,7 @@
         "documentation": {}
     },
     {
-        "label": "render",
+        "label": "get_object_or_404",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
         "isExtraImport": true,
@@ -430,6 +438,14 @@
         "description": "django.http",
         "isExtraImport": true,
         "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "product_detail",
+        "importPath": "store.views",
+        "description": "store.views",
+        "isExtraImport": true,
+        "detail": "store.views",
         "documentation": {}
     },
     {
@@ -592,7 +608,7 @@
         "kind": 5,
         "importPath": "carts.urls",
         "description": "carts.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", views.cart, name=\"cart\"),\n    path(\"add_cart/<int:product_id>\", views.add_cart, name=\"add_cart\")\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", views.cart, name=\"cart\"),\n    path(\"add_cart/<int:product_id>\", views.add_cart, name=\"add_cart\"),\n    path(\"remove_cart/<int:product_id>\", views.remove_cart, name=\"remove_cart\"),\n    path(\"remove_cart_item/<int:product_id>\", views.remove_cart_item, name=\"remove_cart_item\"),\n]",
         "detail": "carts.urls",
         "documentation": {}
     },
@@ -602,6 +618,24 @@
         "importPath": "carts.views",
         "description": "carts.views",
         "peekOfCode": "def add_cart(request, product_id):\n    product = Product.objects.get(id=product_id)\n    try:\n        cart = Cart.objects.get(cart_id=_cart_id(request)) \n    except Cart.DoesNotExist:\n        cart = Cart.objects.create(cart_id=_cart_id(request))\n        cart.save()\n    try:\n        cart_item = CartItem.objects.get(product=product, cart=cart)\n        cart_item.quantity += 1",
+        "detail": "carts.views",
+        "documentation": {}
+    },
+    {
+        "label": "remove_cart",
+        "kind": 2,
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "peekOfCode": "def remove_cart(request, product_id):\n    cart = Cart.objects.get(cart_id=_cart_id(request))\n    product = get_object_or_404(Product, id=product_id)\n    cart_item = CartItem.objects.get(product=product, cart=cart)\n    if cart_item.quantity > 1:\n        cart_item.quantity -= 1\n        cart_item.save()\n    else:\n        cart_item.delete()\n    return redirect('cart')",
+        "detail": "carts.views",
+        "documentation": {}
+    },
+    {
+        "label": "remove_cart_item",
+        "kind": 2,
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "peekOfCode": "def remove_cart_item(request, product_id):\n    cart = Cart.objects.get(cart_id=_cart_id(request))\n    product = get_object_or_404(Product, id=product_id)\n    cart_item = CartItem.objects.get(product=product, cart=cart)\n    cart_item.delete()\n    return redirect(\"cart\")\ndef cart(request, total=0, quantity=0, cart_items=0):\n    try:\n        cart = Cart.objects.get(cart_id=_cart_id(request))\n        cart_items = CartItem.objects.filter(cart=cart, is_active=True)",
         "detail": "carts.views",
         "documentation": {}
     },
