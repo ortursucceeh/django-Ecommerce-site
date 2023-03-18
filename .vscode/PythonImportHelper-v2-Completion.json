@@ -433,22 +433,6 @@
         "documentation": {}
     },
     {
-        "label": "HttpResponse",
-        "importPath": "django.http",
-        "description": "django.http",
-        "isExtraImport": true,
-        "detail": "django.http",
-        "documentation": {}
-    },
-    {
-        "label": "product_detail",
-        "importPath": "store.views",
-        "description": "store.views",
-        "isExtraImport": true,
-        "detail": "store.views",
-        "documentation": {}
-    },
-    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -511,6 +495,22 @@
         "description": "category.models",
         "isExtraImport": true,
         "detail": "category.models",
+        "documentation": {}
+    },
+    {
+        "label": "CartItem",
+        "importPath": "carts.models",
+        "description": "carts.models",
+        "isExtraImport": true,
+        "detail": "carts.models",
+        "documentation": {}
+    },
+    {
+        "label": "_cart_id",
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "isExtraImport": true,
+        "detail": "carts.views",
         "documentation": {}
     },
     {
@@ -1013,7 +1013,7 @@
         "kind": 2,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "def product_detail(request, category_slug, product_slug):\n    try:\n        product = Product.objects.get(category__slug=category_slug, slug=product_slug)\n    except Exception as e:\n        raise e\n    context = {\n        \"product\": product\n    }\n    return render(request, \"store/product_detail.html\", context)",
+        "peekOfCode": "def product_detail(request, category_slug, product_slug):\n    try:\n        product = Product.objects.get(category__slug=category_slug, slug=product_slug)\n        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=product).exists()\n    except Exception as e:\n        raise e\n    context = {\n        \"product\": product,\n        \"in_cart\": in_cart\n    }",
         "detail": "store.views",
         "documentation": {}
     },

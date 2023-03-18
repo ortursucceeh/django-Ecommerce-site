@@ -1,7 +1,5 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from store.models import Product
-from store.views import product_detail
 from .models import Cart, CartItem
 # Create your views here.
 
