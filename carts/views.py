@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 
-from store.models import Product
+from store.models import Product, Variation
 from .models import Cart, CartItem
 # Create your views here.
 
@@ -17,8 +17,22 @@ def _cart_id(request):
 
 def add_cart(request, product_id):
     product = Product.objects.get(id=product_id)
-    color = request.GET.get("color")
-    size = request.GET.get("size")
+    product_variations = []
+    if request.method == "POST":
+        for item in request.POST:
+            key = item
+            value = request.POST.get(key)
+            
+            try:
+                variation = Variation.objects.get(product=product, category__iexact=key, value__iexact=value) #  __iexact - igonres the letter casing
+                product_variations.append(variation)
+                
+            except:
+                pass
+            
+        color = request.GET.get("color")
+        size = request.GET.get("size")
+        
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request)) 
     except Cart.DoesNotExist:
