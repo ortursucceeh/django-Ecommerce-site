@@ -5,8 +5,6 @@ from store.models import Product, Variation
 from .models import Cart, CartItem
 # Create your views here.
 
-
-
 def _cart_id(request):
     cart = request.session.session_key
     
@@ -16,9 +14,18 @@ def _cart_id(request):
     return cart
 
 def add_cart(request, product_id):
+    
+    def add_variations_to_item(item, product_variations):
+        """adding the chosen variations to cart_item"""
+        if len(product_variations) > 0:
+            item.variations.clear()
+            item.variations.add(*product_variations)
+            
     product = Product.objects.get(id=product_id)
     product_variations = []
+    
     if request.method == "POST":
+        
         for item in request.POST:
             key = item
             value = request.POST.get(key)
@@ -34,27 +41,39 @@ def add_cart(request, product_id):
         cart = Cart.objects.create(cart_id=_cart_id(request))
         cart.save()
     
-    try:
-        cart_item = CartItem.objects.get(product=product, cart=cart)
-        # adding the chosen variations to cart_item
-        if len(product_variations) > 0:
-            cart_item.variations.clear()
-            for item in product_variations:
-                cart_item.variations.add(item)
+    
+    #  existing variations
+    is_cart_item_exists = CartItem.objects.filter(product=product, cart=cart).exists()
+    if is_cart_item_exists:
+        cart_item = CartItem.objects.filter(product=product, cart=cart)
+        
+        existing_variations_list, ids = [], []
+        
+        for item in cart_item:
+            existing_variation = item.variations.all()
+            existing_variations_list.append(list(existing_variation))
+            id.append(item.id)
+            
+        if product_variations in existing_variations_list:
+            index = existing_variations_list.index(product_variations) 
+            item = CartItem.objects.get(product=product, id=ids[index])
+            item.quantity += 1
+            item.save()
+        else:
+            item = CartItem.objects.create(product=product, quantity=1, cart=cart)
+            
+            # adding the chosen variations to cart_item
+            add_variations_to_item(item, product_variations)
                 
-        cart_item.quantity += 1
-        cart_item.save()
-    except CartItem.DoesNotExist:
+            item.save()
+    else:
         cart_item = CartItem.objects.create(
             product = product,
             quantity = 1,
             cart = cart, 
         )
         # adding the chosen variations to cart_item
-        if len(product_variations) > 0:
-            cart_item.variations.clear()
-            for item in product_variations:
-                cart_item.variations.add(item)
+        add_variations_to_item(item, product_variations)
                 
         cart_item.save()
            
