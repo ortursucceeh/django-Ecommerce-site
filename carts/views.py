@@ -52,7 +52,7 @@ def add_cart(request, product_id):
         for item in cart_item:
             existing_variation = item.variations.all()
             existing_variations_list.append(list(existing_variation))
-            id.append(item.id)
+            ids.append(item.id)
             
         if product_variations in existing_variations_list:
             index = existing_variations_list.index(product_variations) 
@@ -73,7 +73,7 @@ def add_cart(request, product_id):
             cart = cart, 
         )
         # adding the chosen variations to cart_item
-        add_variations_to_item(item, product_variations)
+        add_variations_to_item(cart_item, product_variations)
                 
         cart_item.save()
            
