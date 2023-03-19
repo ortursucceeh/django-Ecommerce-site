@@ -35,8 +35,12 @@
             <figure class="itemside align-items-center">
                 <div class="aside"><img src="{{ cart_item.product.images.url }}" class="img-sm"></div>
                 <figcaption class="info">
-                    <a href="{{ cart_item.product.get_url }}" class="title text-dark">{{ cart_item.product.name }}</a>
-                    <p class="text-muted small">Color: 25 Mpx <br> Size: Canon</p>
+                    <a href="{{ cart_item.product.get_url }}" class="title text-dark"><b>{{ cart_item.product.name }}</b></a>
+                    {% if cart_item.variations.all %}
+                        {% for variation in cart_item.variations.all %}
+                            {{ variation.category | capfirst }} : {{ variation.value | capfirst}} <br>
+                        {% endfor %}
+                    {% endif %}
                 </figcaption>
             </figure>
         </td>
