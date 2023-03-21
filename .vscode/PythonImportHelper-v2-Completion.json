@@ -168,6 +168,14 @@
         "documentation": {}
     },
     {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
         "label": "admin",
         "importPath": "django.contrib",
         "description": "django.contrib",
@@ -392,6 +400,14 @@
         "documentation": {}
     },
     {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
         "label": "render",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -568,6 +584,14 @@
         "description": "pathlib",
         "isExtraImport": true,
         "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "constants",
+        "importPath": "django.contrib.messages",
+        "description": "django.contrib.messages",
+        "isExtraImport": true,
+        "detail": "django.contrib.messages",
         "documentation": {}
     },
     {
@@ -1042,7 +1066,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "LANGUAGE_CODE = \"en-us\"\nTIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.1/howto/static-files/\nSTATIC_URL = \"static/\"\nSTATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    \"mysite/static\",",
+        "peekOfCode": "LANGUAGE_CODE = \"en-us\"\nTIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# messages\nMESSAGE_TAGS = {\n    messages.ERROR: 'danger',\n}\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.1/howto/static-files/",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1051,7 +1075,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "TIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.1/howto/static-files/\nSTATIC_URL = \"static/\"\nSTATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    \"mysite/static\",\n]",
+        "peekOfCode": "TIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# messages\nMESSAGE_TAGS = {\n    messages.ERROR: 'danger',\n}\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.1/howto/static-files/\nSTATIC_URL = \"static/\"",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1060,7 +1084,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.1/howto/static-files/\nSTATIC_URL = \"static/\"\nSTATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    \"mysite/static\",\n]\n# media files configurations ",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# messages\nMESSAGE_TAGS = {\n    messages.ERROR: 'danger',\n}\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.1/howto/static-files/\nSTATIC_URL = \"static/\"\nSTATIC_ROOT = BASE_DIR / \"static\"",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1069,7 +1093,16 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.1/howto/static-files/\nSTATIC_URL = \"static/\"\nSTATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    \"mysite/static\",\n]\n# media files configurations \nMEDIA_URL = \"media/\"",
+        "peekOfCode": "USE_TZ = True\n# messages\nMESSAGE_TAGS = {\n    messages.ERROR: 'danger',\n}\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.1/howto/static-files/\nSTATIC_URL = \"static/\"\nSTATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MESSAGE_TAGS",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "MESSAGE_TAGS = {\n    messages.ERROR: 'danger',\n}\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.1/howto/static-files/\nSTATIC_URL = \"static/\"\nSTATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    \"mysite/static\",\n]",
         "detail": "greatkart.settings",
         "documentation": {}
     },
