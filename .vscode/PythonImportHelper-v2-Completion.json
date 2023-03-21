@@ -488,6 +488,14 @@
         "documentation": {}
     },
     {
+        "label": "login_required",
+        "importPath": "django.contrib.auth.decorators",
+        "description": "django.contrib.auth.decorators",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.decorators",
+        "documentation": {}
+    },
+    {
         "label": "django.db.models.deletion",
         "kind": 6,
         "isExtraImport": true,
@@ -777,7 +785,16 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def logout(request):\n    return render(request, \"accounts/logout.html\")",
+        "peekOfCode": "def logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
+        "label": "@login_required(login_url",
+        "kind": 5,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "@login_required(login_url = \"login\")\ndef logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")",
         "detail": "accounts.views",
         "documentation": {}
     },
