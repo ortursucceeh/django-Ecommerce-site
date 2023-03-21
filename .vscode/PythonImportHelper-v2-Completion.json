@@ -176,6 +176,14 @@
         "documentation": {}
     },
     {
+        "label": "auth",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
         "label": "admin",
         "importPath": "django.contrib",
         "description": "django.contrib",
@@ -760,7 +768,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def login(request):\n    return render(request, \"accounts/login.html\")\ndef logout(request):\n    return render(request, \"accounts/logout.html\")",
+        "peekOfCode": "def login(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        password = request.POST[\"password\"]\n        user = auth.authenticate(email=email, password=password)\n        if user is not None:\n            auth.login(request, user)\n            messages.success(request, \"You are now logged in!\")\n            return redirect(\"home\")\n        else:",
         "detail": "accounts.views",
         "documentation": {}
     },
