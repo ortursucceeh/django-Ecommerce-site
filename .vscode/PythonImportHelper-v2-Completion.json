@@ -456,6 +456,14 @@
         "documentation": {}
     },
     {
+        "label": "Account",
+        "importPath": "accounts.models",
+        "description": "accounts.models",
+        "isExtraImport": true,
+        "detail": "accounts.models",
+        "documentation": {}
+    },
+    {
         "label": "django.db.models.deletion",
         "kind": 6,
         "isExtraImport": true,
@@ -719,7 +727,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def register(request):\n    form = RegistrationForm()\n    context = {\n        \"form\": form\n    }\n    return render(request, \"accounts/register.html\", context)\ndef login(request):\n    return render(request, \"accounts/login.html\")\ndef logout(request):\n    return render(request, \"accounts/logout.html\")",
+        "peekOfCode": "def register(request):\n    if request.method == \"POST\":\n        form = RegistrationForm(request.POST)\n        if form.is_valid():\n            first_name = form.cleaned_data[\"first_name\"]\n            last_name = form.cleaned_data[\"last_name\"]\n            email = form.cleaned_data[\"email\"]\n            phone_number = form.cleaned_data[\"phone_number\"]\n            password = form.cleaned_data[\"password\"]\n            username = email.split(\"@\")[0]",
         "detail": "accounts.views",
         "documentation": {}
     },
