@@ -264,6 +264,14 @@
         "documentation": {}
     },
     {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
         "label": "AbstractBaseUser",
         "importPath": "django.contrib.auth.models",
         "description": "django.contrib.auth.models",
@@ -671,6 +679,15 @@
         "documentation": {}
     },
     {
+        "label": "RegistrationForm",
+        "kind": 6,
+        "importPath": "accounts.forms",
+        "description": "accounts.forms",
+        "peekOfCode": "class RegistrationForm(forms.ModelForm):\n    password = forms.CharField(widget=forms.PasswordInput(attrs={\n        \"placeholder\": \"Enter Password\"\n    }))\n    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={\n        \"placeholder\": \"Confirm Password\"\n    }))\n    class Meta:\n        model = Account\n        fields = [\"first_name\", \"last_name\", \"phone_number\", \"email\", \"password\"]",
+        "detail": "accounts.forms",
+        "documentation": {}
+    },
+    {
         "label": "MyAccountManager",
         "kind": 6,
         "importPath": "accounts.models",
@@ -702,7 +719,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def register(request):\n    return render(request, \"accounts/register.html\")\ndef login(request):\n    return render(request, \"accounts/login.html\")\ndef logout(request):\n    return render(request, \"accounts/logout.html\")",
+        "peekOfCode": "def register(request):\n    form = RegistrationForm()\n    context = {\n        \"form\": form\n    }\n    return render(request, \"accounts/register.html\", context)\ndef login(request):\n    return render(request, \"accounts/login.html\")\ndef logout(request):\n    return render(request, \"accounts/logout.html\")",
         "detail": "accounts.views",
         "documentation": {}
     },
