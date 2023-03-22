@@ -408,6 +408,14 @@
         "documentation": {}
     },
     {
+        "label": "HttpRequest",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
         "label": "redirect",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -823,7 +831,7 @@
         "kind": 5,
         "importPath": "accounts.urls",
         "description": "accounts.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"register/\", views.register, name=\"register\"),\n    path(\"login/\", views.login, name=\"login\"),\n    path(\"logout/\", views.logout, name=\"logout\"),\n    path(\"dashboard/\", views.dashboard, name=\"dashboard\"),\n    path(\"\", views.dashboard, name=\"dashboard\"),\n    path(\"activate/<uidb64>/<token>\", views.activate, name=\"activate\"),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"register/\", views.register, name=\"register\"),\n    path(\"login/\", views.login, name=\"login\"),\n    path(\"logout/\", views.logout, name=\"logout\"),\n    path(\"dashboard/\", views.dashboard, name=\"dashboard\"),\n    path(\"\", views.dashboard, name=\"dashboard\"),\n    path(\"activate/<uidb64>/<token>\", views.activate, name=\"activate\"),\n    path(\"forgotPassword/\", views.forgotPassword, name=\"forgotPassword\"),\n    path(\"resetPassword_validate/<uidb64>/<token>\", views.resetPassword_validate, name=\"resetPassword_validate\"),\n    path(\"resetPassword/\", views.resetPassword, name=\"resetPassword\"),",
         "detail": "accounts.urls",
         "documentation": {}
     },
@@ -868,7 +876,34 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def dashboard(request):\n    return render(request, \"accounts/dashboard.html\")",
+        "peekOfCode": "def dashboard(request):\n    return render(request, \"accounts/dashboard.html\")\ndef forgotPassword(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        if Account.objects.filter(email=email).exists():\n            user = Account.objects.get(email__exact=email)\n            # Reset password email\n            current_site = get_current_site(request)\n            mail_subject = \"Reset your password\"",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
+        "label": "forgotPassword",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def forgotPassword(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        if Account.objects.filter(email=email).exists():\n            user = Account.objects.get(email__exact=email)\n            # Reset password email\n            current_site = get_current_site(request)\n            mail_subject = \"Reset your password\"\n            message = render_to_string(\"accounts/reset_password_email.html\", {\n                \"user\": user,",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
+        "label": "resetPassword_validate",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def resetPassword_validate(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):\n        user = None\n    if user is not None and default_token_generator.check_token(user, token):\n        request.session[\"uid\"] = uid\n        messages.success(request, \"Please reset your password\")\n        return redirect(\"resetPassword\")",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
+        "label": "resetPassword",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def resetPassword(request):\n    if request.method == \"POST\":\n        password = request.POST[\"password\"]\n        confirm_password = request.POST[\"confirm_password\"]\n        if password == confirm_password:\n            uid = request.session.get(\"uid\")\n            user = Account.objects.get(pk=uid)\n            user.set_password(password)\n            user.save()\n            messages.success(request, \"Password reset successull!\")",
         "detail": "accounts.views",
         "documentation": {}
     },
