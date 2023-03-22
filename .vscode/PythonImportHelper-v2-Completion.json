@@ -496,6 +496,62 @@
         "documentation": {}
     },
     {
+        "label": "get_current_site",
+        "importPath": "django.contrib.sites.shortcuts",
+        "description": "django.contrib.sites.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.contrib.sites.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render_to_string",
+        "importPath": "django.template.loader",
+        "description": "django.template.loader",
+        "isExtraImport": true,
+        "detail": "django.template.loader",
+        "documentation": {}
+    },
+    {
+        "label": "urlsafe_base64_encode",
+        "importPath": "django.utils.http",
+        "description": "django.utils.http",
+        "isExtraImport": true,
+        "detail": "django.utils.http",
+        "documentation": {}
+    },
+    {
+        "label": "urlsafe_base64_decode",
+        "importPath": "django.utils.http",
+        "description": "django.utils.http",
+        "isExtraImport": true,
+        "detail": "django.utils.http",
+        "documentation": {}
+    },
+    {
+        "label": "force_bytes",
+        "importPath": "django.utils.encoding",
+        "description": "django.utils.encoding",
+        "isExtraImport": true,
+        "detail": "django.utils.encoding",
+        "documentation": {}
+    },
+    {
+        "label": "default_token_generator",
+        "importPath": "django.contrib.auth.tokens",
+        "description": "django.contrib.auth.tokens",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.tokens",
+        "documentation": {}
+    },
+    {
+        "label": "EmailMessage",
+        "importPath": "django.core.mail",
+        "description": "django.core.mail",
+        "isExtraImport": true,
+        "detail": "django.core.mail",
+        "documentation": {}
+    },
+    {
         "label": "django.db.models.deletion",
         "kind": 6,
         "isExtraImport": true,
@@ -608,6 +664,15 @@
         "description": "django.contrib.messages",
         "isExtraImport": true,
         "detail": "django.contrib.messages",
+        "documentation": {}
+    },
+    {
+        "label": "environ",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "environ",
+        "description": "environ",
+        "detail": "environ",
         "documentation": {}
     },
     {
@@ -758,7 +823,7 @@
         "kind": 5,
         "importPath": "accounts.urls",
         "description": "accounts.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"register/\", views.register, name=\"register\"),\n    path(\"login/\", views.login, name=\"login\"),\n    path(\"logout/\", views.logout, name=\"logout\"),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"register/\", views.register, name=\"register\"),\n    path(\"login/\", views.login, name=\"login\"),\n    path(\"logout/\", views.logout, name=\"logout\"),\n    path(\"activate/\", views.activate, name=\"activate\"),\n]",
         "detail": "accounts.urls",
         "documentation": {}
     },
@@ -983,7 +1048,16 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = \"django-insecure-b3cy!@8rs0b%^mimq687$y$5&cgihf8v92!ut$*ycfd1a2y0(f\"\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\nenv = environ.Env()\nenviron.Env.read_env(BASE_DIR / '.env')\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = env('SECRET_KEY')\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "env",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "env = environ.Env()\nenviron.Env.read_env(BASE_DIR / '.env')\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = env('SECRET_KEY')\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -992,7 +1066,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "SECRET_KEY = \"django-insecure-b3cy!@8rs0b%^mimq687$y$5&cgihf8v92!ut$*ycfd1a2y0(f\"\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"carts\",\n    \"store\",\n    \"mysite\",\n    \"category\",",
+        "peekOfCode": "SECRET_KEY = env('SECRET_KEY')\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"carts\",\n    \"store\",\n    \"mysite\",\n    \"category\",",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1154,7 +1228,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "STATICFILES_DIRS = [\n    \"mysite/static\",\n]\n# media files configurations \nMEDIA_URL = \"media/\"\nMEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "peekOfCode": "STATICFILES_DIRS = [\n    \"mysite/static\",\n]\n# media files configurations \nMEDIA_URL = \"media/\"\nMEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1163,7 +1237,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "MEDIA_URL = \"media/\"\nMEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "peekOfCode": "MEDIA_URL = \"media/\"\nMEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration\nEMAIL_HOST = \"smtp.gmail.com\"\nEMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1172,7 +1246,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "MEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "peekOfCode": "MEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration\nEMAIL_HOST = \"smtp.gmail.com\"\nEMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1181,7 +1255,52 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration\nEMAIL_HOST = \"smtp.gmail.com\"\nEMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_HOST",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "EMAIL_HOST = \"smtp.gmail.com\"\nEMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_PORT",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "EMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_HOST_USER",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "EMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_HOST_PASSWORD",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "EMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_USE_TLS",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "EMAIL_USE_TLS = True",
         "detail": "greatkart.settings",
         "documentation": {}
     },
