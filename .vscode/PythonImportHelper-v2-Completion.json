@@ -823,7 +823,7 @@
         "kind": 5,
         "importPath": "accounts.urls",
         "description": "accounts.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"register/\", views.register, name=\"register\"),\n    path(\"login/\", views.login, name=\"login\"),\n    path(\"logout/\", views.logout, name=\"logout\"),\n    path(\"activate/\", views.activate, name=\"activate\"),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"register/\", views.register, name=\"register\"),\n    path(\"login/\", views.login, name=\"login\"),\n    path(\"logout/\", views.logout, name=\"logout\"),\n    path(\"dashboard/\", views.dashboard, name=\"dashboard\"),\n    path(\"\", views.dashboard, name=\"dashboard\"),\n    path(\"activate/<uidb64>/<token>\", views.activate, name=\"activate\"),\n]",
         "detail": "accounts.urls",
         "documentation": {}
     },
@@ -841,7 +841,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def login(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        password = request.POST[\"password\"]\n        user = auth.authenticate(email=email, password=password)\n        if user is not None:\n            auth.login(request, user)\n            messages.success(request, \"You are now logged in!\")\n            return redirect(\"home\")\n        else:",
+        "peekOfCode": "def login(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        password = request.POST[\"password\"]\n        user = auth.authenticate(email=email, password=password)\n        if user is not None:\n            auth.login(request, user)\n            messages.success(request, \"You are now logged in!\")\n            return redirect(\"dashboard\")\n        else:",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -850,7 +850,25 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")",
+        "peekOfCode": "def logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")\ndef activate(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):\n        user = None",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
+        "label": "activate",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def activate(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):\n        user = None\n    if user is not None and default_token_generator.check_token(user, token):\n        user.is_active = True\n        user.save()\n        messages.success(request, \"Congratulations! Your account is activated!\")",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def dashboard(request):\n    return render(request, \"accounts/dashboard.html\")",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -859,7 +877,7 @@
         "kind": 5,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "@login_required(login_url = \"login\")\ndef logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")",
+        "peekOfCode": "@login_required(login_url = \"login\")\ndef logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")\ndef activate(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -1048,7 +1066,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\nenv = environ.Env()\nenviron.Env.read_env(BASE_DIR / '.env')\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = env('SECRET_KEY')\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\nenv = environ.Env()\nenviron.Env.read_env(BASE_DIR / \".env\")\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = env(\"SECRET_KEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1057,7 +1075,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "env = environ.Env()\nenviron.Env.read_env(BASE_DIR / '.env')\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = env('SECRET_KEY')\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition",
+        "peekOfCode": "env = environ.Env()\nenviron.Env.read_env(BASE_DIR / \".env\")\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = env(\"SECRET_KEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1066,7 +1084,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "SECRET_KEY = env('SECRET_KEY')\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"carts\",\n    \"store\",\n    \"mysite\",\n    \"category\",",
+        "peekOfCode": "SECRET_KEY = env(\"SECRET_KEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"carts\",\n    \"store\",\n    \"mysite\",\n    \"category\",",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1237,7 +1255,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "MEDIA_URL = \"media/\"\nMEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration\nEMAIL_HOST = \"smtp.gmail.com\"\nEMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')",
+        "peekOfCode": "MEDIA_URL = \"media/\"\nMEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = env(\"EMAIL_HOST\")\nEMAIL_PORT = env(\"EMAIL_PORT\")\nEMAIL_HOST_USER = env(\"EMAIL_HOST_USER\")",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1246,7 +1264,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "MEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration\nEMAIL_HOST = \"smtp.gmail.com\"\nEMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "peekOfCode": "MEDIA_ROOT = BASE_DIR / \"media\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = env(\"EMAIL_HOST\")\nEMAIL_PORT = env(\"EMAIL_PORT\")\nEMAIL_HOST_USER = env(\"EMAIL_HOST_USER\")\nEMAIL_HOST_PASSWORD = env(\"EMAIL_HOST_PASSWORD\")",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1255,7 +1273,16 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration\nEMAIL_HOST = \"smtp.gmail.com\"\nEMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\n# SMTP configuration\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = env(\"EMAIL_HOST\")\nEMAIL_PORT = env(\"EMAIL_PORT\")\nEMAIL_HOST_USER = env(\"EMAIL_HOST_USER\")\nEMAIL_HOST_PASSWORD = env(\"EMAIL_HOST_PASSWORD\")\nEMAIL_STARTTLS = False\nEMAIL_USE_SSL = True\nEMAIL_USE_TLS = False",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_BACKEND",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = env(\"EMAIL_HOST\")\nEMAIL_PORT = env(\"EMAIL_PORT\")\nEMAIL_HOST_USER = env(\"EMAIL_HOST_USER\")\nEMAIL_HOST_PASSWORD = env(\"EMAIL_HOST_PASSWORD\")\nEMAIL_STARTTLS = False\nEMAIL_USE_SSL = True\nEMAIL_USE_TLS = False\nDEFAULT_FROM_EMAIL = EMAIL_HOST_USER",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1264,7 +1291,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "EMAIL_HOST = \"smtp.gmail.com\"\nEMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "peekOfCode": "EMAIL_HOST = env(\"EMAIL_HOST\")\nEMAIL_PORT = env(\"EMAIL_PORT\")\nEMAIL_HOST_USER = env(\"EMAIL_HOST_USER\")\nEMAIL_HOST_PASSWORD = env(\"EMAIL_HOST_PASSWORD\")\nEMAIL_STARTTLS = False\nEMAIL_USE_SSL = True\nEMAIL_USE_TLS = False\nDEFAULT_FROM_EMAIL = EMAIL_HOST_USER",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1273,7 +1300,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "EMAIL_PORT = 587\nEMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "peekOfCode": "EMAIL_PORT = env(\"EMAIL_PORT\")\nEMAIL_HOST_USER = env(\"EMAIL_HOST_USER\")\nEMAIL_HOST_PASSWORD = env(\"EMAIL_HOST_PASSWORD\")\nEMAIL_STARTTLS = False\nEMAIL_USE_SSL = True\nEMAIL_USE_TLS = False\nDEFAULT_FROM_EMAIL = EMAIL_HOST_USER",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1282,7 +1309,7 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "EMAIL_HOST_USER = env('EMAIL_HOST_USER')\nEMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "peekOfCode": "EMAIL_HOST_USER = env(\"EMAIL_HOST_USER\")\nEMAIL_HOST_PASSWORD = env(\"EMAIL_HOST_PASSWORD\")\nEMAIL_STARTTLS = False\nEMAIL_USE_SSL = True\nEMAIL_USE_TLS = False\nDEFAULT_FROM_EMAIL = EMAIL_HOST_USER",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1291,7 +1318,25 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "EMAIL_HOST_PASSWORD = env('EMAIL_EMAIL_HOST_PASSWORD')\nEMAIL_USE_TLS = True",
+        "peekOfCode": "EMAIL_HOST_PASSWORD = env(\"EMAIL_HOST_PASSWORD\")\nEMAIL_STARTTLS = False\nEMAIL_USE_SSL = True\nEMAIL_USE_TLS = False\nDEFAULT_FROM_EMAIL = EMAIL_HOST_USER",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_STARTTLS",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "EMAIL_STARTTLS = False\nEMAIL_USE_SSL = True\nEMAIL_USE_TLS = False\nDEFAULT_FROM_EMAIL = EMAIL_HOST_USER",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_USE_SSL",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "EMAIL_USE_SSL = True\nEMAIL_USE_TLS = False\nDEFAULT_FROM_EMAIL = EMAIL_HOST_USER",
         "detail": "greatkart.settings",
         "documentation": {}
     },
@@ -1300,7 +1345,16 @@
         "kind": 5,
         "importPath": "greatkart.settings",
         "description": "greatkart.settings",
-        "peekOfCode": "EMAIL_USE_TLS = True",
+        "peekOfCode": "EMAIL_USE_TLS = False\nDEFAULT_FROM_EMAIL = EMAIL_HOST_USER",
+        "detail": "greatkart.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_FROM_EMAIL",
+        "kind": 5,
+        "importPath": "greatkart.settings",
+        "description": "greatkart.settings",
+        "peekOfCode": "DEFAULT_FROM_EMAIL = EMAIL_HOST_USER",
         "detail": "greatkart.settings",
         "documentation": {}
     },
