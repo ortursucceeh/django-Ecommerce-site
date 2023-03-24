@@ -115,7 +115,7 @@ def add_cart(request, product_id):
             cart_item = CartItem.objects.create(
                 product = product,
                 quantity = 1,
-                user = current_user, 
+                cart = cart, 
             )
             # adding the chosen variations to cart_item
             add_variations_to_item(cart_item, product_variations)

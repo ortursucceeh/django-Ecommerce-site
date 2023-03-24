@@ -87,14 +87,38 @@ def login(request):
         if user is not None:
             # if user is not authorizated and has some items in cart, bring them with him
             try:
-               cart = Cart.objects.get(cart_id=_cart_id(request))
-               is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
-               if is_cart_item_exists:
-                   cart_item = CartItem.objects.filter(cart=cart)
-                   
-                   for item in cart_item:
-                       item.user = user
-                       item.save()
+                cart = Cart.objects.get(cart_id=_cart_id(request))
+                is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
+                if is_cart_item_exists:
+                    cart_item = CartItem.objects.filter(cart=cart)
+
+                    # getting the product variations by cart id
+                    product_variations = []
+                    for item in cart_item:
+                        varitation = item.variations.all()
+                        product_variations.append(list(varitation)) # by default is a query list
+                        
+                    # get the cart items from the user to access his product variations
+                    cart_item = CartItem.objects.filter(user=user)
+                    existing_variations_list, ids = [], []
+        
+                    for item in cart_item:
+                        existing_variation = item.variations.all()
+                        existing_variations_list.append(list(existing_variation))
+                        ids.append(item.id)
+                        
+                    for product in product_variations:
+                        if product in existing_variations_list:
+                            index = existing_variations_list.index(product)
+                            item = CartItem.objects.get(id=ids[index])
+                            item.quantity += 1
+                            item.user = user
+                            item.save()
+                        else:
+                            cart_item = CartItem.objects.filter(cart=cart)
+                            for item in cart_item:
+                                item.user = user
+                                item.save()
             except:
                 pass 
             auth.login(request, user)
