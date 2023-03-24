@@ -56,6 +56,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -496,6 +512,22 @@
         "documentation": {}
     },
     {
+        "label": "Account",
+        "importPath": "accounts.models",
+        "description": "accounts.models",
+        "isExtraImport": true,
+        "detail": "accounts.models",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "django.contrib.auth.decorators",
+        "description": "django.contrib.auth.decorators",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.decorators",
+        "documentation": {}
+    },
+    {
         "label": "login_required",
         "importPath": "django.contrib.auth.decorators",
         "description": "django.contrib.auth.decorators",
@@ -560,12 +592,27 @@
         "documentation": {}
     },
     {
-        "label": "django.db.models.deletion",
-        "kind": 6,
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
         "isExtraImport": true,
-        "importPath": "django.db.models.deletion",
-        "description": "django.db.models.deletion",
-        "detail": "django.db.models.deletion",
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
         "documentation": {}
     },
     {
@@ -591,6 +638,47 @@
         "description": "carts.views",
         "isExtraImport": true,
         "detail": "carts.views",
+        "documentation": {}
+    },
+    {
+        "label": "_cart_id",
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "isExtraImport": true,
+        "detail": "carts.views",
+        "documentation": {}
+    },
+    {
+        "label": "Cart",
+        "importPath": "carts.models",
+        "description": "carts.models",
+        "isExtraImport": true,
+        "detail": "carts.models",
+        "documentation": {}
+    },
+    {
+        "label": "CartItem",
+        "importPath": "carts.models",
+        "description": "carts.models",
+        "isExtraImport": true,
+        "detail": "carts.models",
+        "documentation": {}
+    },
+    {
+        "label": "CartItem",
+        "importPath": "carts.models",
+        "description": "carts.models",
+        "isExtraImport": true,
+        "detail": "carts.models",
+        "documentation": {}
+    },
+    {
+        "label": "django.db.models.deletion",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
         "documentation": {}
     },
     {
@@ -692,14 +780,6 @@
         "documentation": {}
     },
     {
-        "label": "settings",
-        "importPath": "django.conf",
-        "description": "django.conf",
-        "isExtraImport": true,
-        "detail": "django.conf",
-        "documentation": {}
-    },
-    {
         "label": "get_wsgi_application",
         "importPath": "django.core.wsgi",
         "description": "django.core.wsgi",
@@ -753,14 +833,6 @@
         "description": "django.db.models",
         "isExtraImport": true,
         "detail": "django.db.models",
-        "documentation": {}
-    },
-    {
-        "label": "CartItem",
-        "importPath": "carts.models",
-        "description": "carts.models",
-        "isExtraImport": true,
-        "detail": "carts.models",
         "documentation": {}
     },
     {
@@ -831,8 +903,26 @@
         "kind": 5,
         "importPath": "accounts.urls",
         "description": "accounts.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"register/\", views.register, name=\"register\"),\n    path(\"login/\", views.login, name=\"login\"),\n    path(\"logout/\", views.logout, name=\"logout\"),\n    path(\"dashboard/\", views.dashboard, name=\"dashboard\"),\n    path(\"\", views.dashboard, name=\"dashboard\"),\n    path(\"activate/<uidb64>/<token>\", views.activate, name=\"activate\"),\n    path(\"forgotPassword/\", views.forgotPassword, name=\"forgotPassword\"),\n    path(\"resetPassword_validate/<uidb64>/<token>\", views.resetPassword_validate, name=\"resetPassword_validate\"),\n    path(\"resetPassword/\", views.resetPassword, name=\"resetPassword\"),",
+        "peekOfCode": "urlpatterns = [\n    path(\"register/\", views.register, name=\"register\"),\n    path(\"login/\", views.login, name=\"login\"),\n    path(\"logout/\", views.logout, name=\"logout\"),\n    path(\"dashboard/\", views.dashboard, name=\"dashboard\"),\n    path(\"\", views.dashboard, name=\"dashboard\"),\n    path(\"activate/<uidb64>/<token>\", views.activate_user, name=\"activate\"),\n    path(\"forgotPassword/\", views.forgotPassword, name=\"forgotPassword\"),\n    path(\"resetPassword_validate/<uidb64>/<token>\", views.resetPassword_validate, name=\"resetPassword_validate\"),\n    path(\"resetPassword/\", views.resetPassword, name=\"resetPassword\"),",
         "detail": "accounts.urls",
+        "documentation": {}
+    },
+    {
+        "label": "send_verify_email",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def send_verify_email(user, request):\n    #  user activation\n    current_site = get_current_site(request)\n    mail_subject = \"Please activate your account\"\n    email_body = render_to_string(\"accounts/account_verification_email.html\", {\n        \"user\": user,\n        \"domain\": current_site,\n        \"uid\": urlsafe_base64_encode(force_bytes(user.pk)),\n        \"token\": default_token_generator.make_token(user),\n    })",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
+        "label": "send_reset_password",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def send_reset_password(user, request):\n    # Reset password email\n    current_site = get_current_site(request)\n    mail_subject = \"Reset your password\"\n    email_body = render_to_string(\"accounts/reset_password_email.html\", {\n        \"user\": user,\n        \"domain\": current_site,\n        \"uid\": urlsafe_base64_encode(force_bytes(user.pk)),\n        \"token\": default_token_generator.make_token(user),\n    })",
+        "detail": "accounts.views",
         "documentation": {}
     },
     {
@@ -849,7 +939,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def login(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        password = request.POST[\"password\"]\n        user = auth.authenticate(email=email, password=password)\n        if user is not None:\n            auth.login(request, user)\n            messages.success(request, \"You are now logged in!\")\n            return redirect(\"dashboard\")\n        else:",
+        "peekOfCode": "def login(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        password = request.POST[\"password\"]\n        user = auth.authenticate(email=email, password=password)\n        if user is not None:\n            # if user is not authorizated and has some items in cart, bring them with him\n            try:\n               cart = Cart.objects.get(cart_id=_cart_id(request))\n               is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -858,16 +948,16 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")\ndef activate(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):\n        user = None",
+        "peekOfCode": "def logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")\ndef activate_user(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):\n        user = None",
         "detail": "accounts.views",
         "documentation": {}
     },
     {
-        "label": "activate",
+        "label": "activate_user",
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def activate(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):\n        user = None\n    if user is not None and default_token_generator.check_token(user, token):\n        user.is_active = True\n        user.save()\n        messages.success(request, \"Congratulations! Your account is activated!\")",
+        "peekOfCode": "def activate_user(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):\n        user = None\n    if user and default_token_generator.check_token(user, token):\n        user.is_active = True\n        user.save()\n        messages.success(request, \"Congratulations! Your account is activated! Now you can login up)\")",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -876,7 +966,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def dashboard(request):\n    return render(request, \"accounts/dashboard.html\")\ndef forgotPassword(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        if Account.objects.filter(email=email).exists():\n            user = Account.objects.get(email__exact=email)\n            # Reset password email\n            current_site = get_current_site(request)\n            mail_subject = \"Reset your password\"",
+        "peekOfCode": "def dashboard(request):\n    return render(request, \"accounts/dashboard.html\")\ndef forgotPassword(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        if Account.objects.filter(email=email).exists():\n            user = Account.objects.get(email__exact=email)\n            send_reset_password(user, request)\n            messages.success(request, \"Password reset email has been sent to your email address!\")\n            return redirect(\"login\")",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -885,7 +975,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def forgotPassword(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        if Account.objects.filter(email=email).exists():\n            user = Account.objects.get(email__exact=email)\n            # Reset password email\n            current_site = get_current_site(request)\n            mail_subject = \"Reset your password\"\n            message = render_to_string(\"accounts/reset_password_email.html\", {\n                \"user\": user,",
+        "peekOfCode": "def forgotPassword(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        if Account.objects.filter(email=email).exists():\n            user = Account.objects.get(email__exact=email)\n            send_reset_password(user, request)\n            messages.success(request, \"Password reset email has been sent to your email address!\")\n            return redirect(\"login\")\n        else:\n            messages.error(request, \"Account doesn't exists!\")",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -894,7 +984,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def resetPassword_validate(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):\n        user = None\n    if user is not None and default_token_generator.check_token(user, token):\n        request.session[\"uid\"] = uid\n        messages.success(request, \"Please reset your password\")\n        return redirect(\"resetPassword\")",
+        "peekOfCode": "def resetPassword_validate(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):\n        user = None\n    if user is not None and default_token_generator.check_token(user, token):\n        request.session[\"uid\"] = uid\n        messages.success(request, \"Please, enter the new password\")\n        return redirect(\"resetPassword\")",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -903,7 +993,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def resetPassword(request):\n    if request.method == \"POST\":\n        password = request.POST[\"password\"]\n        confirm_password = request.POST[\"confirm_password\"]\n        if password == confirm_password:\n            uid = request.session.get(\"uid\")\n            user = Account.objects.get(pk=uid)\n            user.set_password(password)\n            user.save()\n            messages.success(request, \"Password reset successull!\")",
+        "peekOfCode": "def resetPassword(request):\n    if request.method == \"POST\":\n        password = request.POST[\"password\"]\n        confirm_password = request.POST[\"confirm_password\"]\n        if password == confirm_password:\n            uid = request.session.get(\"uid\")\n            user = Account.objects.get(pk=uid)\n            user.set_password(password)\n            user.save()\n            messages.success(request, \"Password changed successully!\")",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -912,7 +1002,7 @@
         "kind": 5,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "@login_required(login_url = \"login\")\ndef logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")\ndef activate(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):",
+        "peekOfCode": "@login_required(login_url = \"login\")\ndef logout(request):\n    auth.logout(request)\n    messages.success(request, \"You are logged out!\")\n    return redirect(\"login\")\ndef activate_user(request, uidb64, token):\n    try:\n        uid = urlsafe_base64_decode(uidb64).decode()\n        user = Account._default_manager.get(pk=uid)\n    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -932,6 +1022,15 @@
         "description": "carts.migrations.0002_cartitem_variations",
         "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"store\", \"0003_rename_variation_category_variation_category_and_more\"),\n        (\"carts\", \"0001_initial\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"cartitem\",\n            name=\"variations\",\n            field=models.ManyToManyField(blank=True, to=\"store.variation\"),",
         "detail": "carts.migrations.0002_cartitem_variations",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "carts.migrations.0003_cartitem_user_alter_cartitem_cart",
+        "description": "carts.migrations.0003_cartitem_user_alter_cartitem_cart",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n        (\"carts\", \"0002_cartitem_variations\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"cartitem\",\n            name=\"user\",\n            field=models.ForeignKey(",
+        "detail": "carts.migrations.0003_cartitem_user_alter_cartitem_cart",
         "documentation": {}
     },
     {
@@ -966,7 +1065,7 @@
         "kind": 2,
         "importPath": "carts.context_processors",
         "description": "carts.context_processors",
-        "peekOfCode": "def counter(request):\n    cart_count = 0\n    if 'admin' in request.path:\n        return {}\n    else:\n        try:\n            cart = Cart.objects.filter(cart_id=_cart_id(request))\n            cart_items = CartItem.objects.all().filter(cart=cart[:1])\n            for cart_item in cart_items:\n                cart_count += cart_item.quantity",
+        "peekOfCode": "def counter(request):\n    cart_count = 0\n    if 'admin' in request.path:\n        return {}\n    else:\n        try:\n            cart = Cart.objects.filter(cart_id=_cart_id(request))\n            if request.user.is_authenticated:\n                cart_items = CartItem.objects.all().filter(user=request.user)\n            else:",
         "detail": "carts.context_processors",
         "documentation": {}
     },
@@ -975,7 +1074,7 @@
         "kind": 6,
         "importPath": "carts.models",
         "description": "carts.models",
-        "peekOfCode": "class Cart(models.Model):\n    cart_id = models.CharField(max_length=250, blank=True)\n    date = models.DateField(auto_now_add=True)\n    def __str__(self):\n        return self.cart_id\nclass CartItem(models.Model):\n    product     = models.ForeignKey(Product, on_delete=models.CASCADE)\n    variations  = models.ManyToManyField(Variation, blank=True)\n    cart        = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    quantity    = models.IntegerField()",
+        "peekOfCode": "class Cart(models.Model):\n    cart_id = models.CharField(max_length=250, blank=True)\n    date = models.DateField(auto_now_add=True)\n    def __str__(self):\n        return self.cart_id\nclass CartItem(models.Model):\n    product     = models.ForeignKey(Product, on_delete=models.CASCADE)\n    variations  = models.ManyToManyField(Variation, blank=True)\n    cart        = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)\n    quantity    = models.IntegerField()",
         "detail": "carts.models",
         "documentation": {}
     },
@@ -984,7 +1083,7 @@
         "kind": 6,
         "importPath": "carts.models",
         "description": "carts.models",
-        "peekOfCode": "class CartItem(models.Model):\n    product     = models.ForeignKey(Product, on_delete=models.CASCADE)\n    variations  = models.ManyToManyField(Variation, blank=True)\n    cart        = models.ForeignKey(Cart, on_delete=models.CASCADE)\n    quantity    = models.IntegerField()\n    is_active   = models.BooleanField(default=True)\n    def sub_total(self):\n        return self.product.price * self.quantity\n    def __unicode__(self):\n        return self.product",
+        "peekOfCode": "class CartItem(models.Model):\n    product     = models.ForeignKey(Product, on_delete=models.CASCADE)\n    variations  = models.ManyToManyField(Variation, blank=True)\n    cart        = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)\n    quantity    = models.IntegerField()\n    is_active   = models.BooleanField(default=True)\n    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)\n    def sub_total(self):\n        return self.product.price * self.quantity\n    def __unicode__(self):",
         "detail": "carts.models",
         "documentation": {}
     },
@@ -993,7 +1092,7 @@
         "kind": 5,
         "importPath": "carts.urls",
         "description": "carts.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", views.cart, name=\"cart\"),\n    path(\"add_cart/<int:product_id>\", views.add_cart, name=\"add_cart\"),\n    path(\"remove_cart/<int:product_id>/<int:cart_item_id>\", views.remove_cart, name=\"remove_cart\"),\n    path(\"remove_cart_item/<int:product_id>/<int:cart_item_id>\", views.remove_cart_item, name=\"remove_cart_item\"),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", views.cart, name=\"cart\"),\n    path(\"add_cart/<int:product_id>\", views.add_cart, name=\"add_cart\"),\n    path(\"remove_cart/<int:product_id>/<int:cart_item_id>\", views.remove_cart, name=\"remove_cart\"),\n    path(\"remove_cart_item/<int:product_id>/<int:cart_item_id>\", views.remove_cart_item, name=\"remove_cart_item\"),\n    path(\"checkout/\", views.checkout, name=\"checkout\")\n]",
         "detail": "carts.urls",
         "documentation": {}
     },
@@ -1020,7 +1119,7 @@
         "kind": 2,
         "importPath": "carts.views",
         "description": "carts.views",
-        "peekOfCode": "def remove_cart_item(request, product_id, cart_item_id):\n    cart = Cart.objects.get(cart_id=_cart_id(request))\n    product = get_object_or_404(Product, id=product_id)\n    cart_item = CartItem.objects.get(product=product, cart=cart, id=cart_item_id)\n    cart_item.delete()\n    return redirect(\"cart\")\ndef cart(request, total=0, quantity=0, cart_items=0):\n    try:\n        tax, grand_total = 0, 0\n        cart = Cart.objects.get(cart_id=_cart_id(request))",
+        "peekOfCode": "def remove_cart_item(request, product_id, cart_item_id):\n    cart = Cart.objects.get(cart_id=_cart_id(request))\n    product = get_object_or_404(Product, id=product_id)\n    cart_item = CartItem.objects.get(product=product, cart=cart, id=cart_item_id)\n    cart_item.delete()\n    return redirect(\"cart\")\ndef cart(request, total=0, quantity=0, cart_items=0):\n    try:\n        tax, grand_total = 0, 0\n        if request.user.is_authenticated:",
         "detail": "carts.views",
         "documentation": {}
     },
@@ -1029,7 +1128,16 @@
         "kind": 2,
         "importPath": "carts.views",
         "description": "carts.views",
-        "peekOfCode": "def cart(request, total=0, quantity=0, cart_items=0):\n    try:\n        tax, grand_total = 0, 0\n        cart = Cart.objects.get(cart_id=_cart_id(request))\n        cart_items = CartItem.objects.filter(cart=cart, is_active=True)\n        for cart_item in cart_items:\n            total += (cart_item.product.price * cart_item.quantity)\n            quantity += cart_item.quantity\n        tax = (2 * total) / 100\n        grand_total = total + tax",
+        "peekOfCode": "def cart(request, total=0, quantity=0, cart_items=0):\n    try:\n        tax, grand_total = 0, 0\n        if request.user.is_authenticated:\n            cart_items = CartItem.objects.filter(user=request.user, is_active=True)\n        else:\n            cart = Cart.objects.get(cart_id=_cart_id(request))\n            cart_items = CartItem.objects.filter(cart=cart, is_active=True)\n        for cart_item in cart_items:\n            total += (cart_item.product.price * cart_item.quantity)",
+        "detail": "carts.views",
+        "documentation": {}
+    },
+    {
+        "label": "checkout",
+        "kind": 2,
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "peekOfCode": "def checkout(request, total=0, quantity=0, cart_items=[]):\n    try:\n        tax, grand_total = 0, 0\n        cart = Cart.objects.get(cart_id=_cart_id(request))\n        cart_items = CartItem.objects.filter(cart=cart, is_active=True)\n        for cart_item in cart_items:\n            total += (cart_item.product.price * cart_item.quantity)\n            quantity += cart_item.quantity\n        tax = (2 * total) / 100\n        grand_total = total + tax",
         "detail": "carts.views",
         "documentation": {}
     },
