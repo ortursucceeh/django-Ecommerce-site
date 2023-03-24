@@ -4,6 +4,7 @@ from django.contrib import messages, auth
 from accounts.models import Account
 from django.contrib.auth.decorators import login_required
 
+import requests
 
 # Email verification
 from django.contrib.sites.shortcuts import get_current_site
@@ -13,6 +14,7 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.conf import settings
+
 
 from .forms import RegistrationForm
 from carts.views import _cart_id
@@ -123,7 +125,17 @@ def login(request):
                 pass 
             auth.login(request, user)
             messages.success(request, "You are now logged in!")
-            return redirect("dashboard")
+            # redirect to checkout page when user is logged in by using checkout button
+            url = request.META.get('HTTP_REFERER')
+            try:
+                # next=/cart/checkout
+                query = requests.utils.urlparse(url).query # get path after ?
+                params = dict(x.split("=") for x in query.split("&"))
+                if "next" in params:
+                    next_page = params["next"]
+                    return redirect(next_page)
+            except:
+                return redirect("dashboard")
         else:
             messages.success(request, "Invalid login credentials or your account is not activated!")
             return redirect("login")
