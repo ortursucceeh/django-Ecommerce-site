@@ -248,6 +248,15 @@
         "documentation": {}
     },
     {
+        "label": "django.contrib.auth.admin",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.contrib.auth.admin",
+        "description": "django.contrib.auth.admin",
+        "detail": "django.contrib.auth.admin",
+        "documentation": {}
+    },
+    {
         "label": "UserAdmin",
         "importPath": "django.contrib.auth.admin",
         "description": "django.contrib.auth.admin",
@@ -1097,11 +1106,29 @@
         "documentation": {}
     },
     {
+        "label": "add_variations_to_item",
+        "kind": 2,
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "peekOfCode": "def add_variations_to_item(item, product_variations):\n    if len(product_variations) > 0:\n        item.variations.clear()\n        item.variations.add(*product_variations)\ndef add_existing_variations(cart_item, product, product_variations, is_authenticated=False, current_user=None):\n        existing_variations_list, ids = [], []\n        for item in cart_item:\n            existing_variation = item.variations.all()\n            existing_variations_list.append(list(existing_variation))\n            ids.append(item.id)",
+        "detail": "carts.views",
+        "documentation": {}
+    },
+    {
+        "label": "add_existing_variations",
+        "kind": 2,
+        "importPath": "carts.views",
+        "description": "carts.views",
+        "peekOfCode": "def add_existing_variations(cart_item, product, product_variations, is_authenticated=False, current_user=None):\n        existing_variations_list, ids = [], []\n        for item in cart_item:\n            existing_variation = item.variations.all()\n            existing_variations_list.append(list(existing_variation))\n            ids.append(item.id)\n        if product_variations in existing_variations_list:\n            index = existing_variations_list.index(product_variations) \n            item = CartItem.objects.get(product=product, id=ids[index])\n            item.quantity += 1",
+        "detail": "carts.views",
+        "documentation": {}
+    },
+    {
         "label": "add_cart",
         "kind": 2,
         "importPath": "carts.views",
         "description": "carts.views",
-        "peekOfCode": "def add_cart(request, product_id):\n    def add_variations_to_item(item, product_variations):\n        \"\"\"adding the chosen variations to cart_item\"\"\"\n        if len(product_variations) > 0:\n            item.variations.clear()\n            item.variations.add(*product_variations)\n    product = Product.objects.get(id=product_id)\n    product_variations = []\n    if request.method == \"POST\":\n        for item in request.POST:",
+        "peekOfCode": "def add_cart(request, product_id):\n    current_user = request.user\n    product = Product.objects.get(id=product_id)\n    # if user authenticated\n    if current_user.is_authenticated:\n        product_variations = []\n        if request.method == \"POST\":\n            for item in request.POST:\n                key = item\n                value = request.POST.get(key)",
         "detail": "carts.views",
         "documentation": {}
     },
