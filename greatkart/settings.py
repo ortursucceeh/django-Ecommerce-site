@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "mysite",
     "category",
     "accounts",
+    "orders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
