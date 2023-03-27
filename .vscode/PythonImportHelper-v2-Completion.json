@@ -967,6 +967,14 @@
         "documentation": {}
     },
     {
+        "label": "Payment",
+        "importPath": "orders.models",
+        "description": "orders.models",
+        "isExtraImport": true,
+        "detail": "orders.models",
+        "documentation": {}
+    },
+    {
         "label": "Category",
         "importPath": "category.models",
         "description": "category.models",
@@ -1820,7 +1828,7 @@
         "kind": 2,
         "importPath": "orders.views",
         "description": "orders.views",
-        "peekOfCode": "def payments(request):\n    body = json.loads(request.body)\n    print(body)\n    return render(request, \"orders/payments.html\")\ndef place_order(request, total=0, quantity=0, tax=0):\n    current_user = request.user\n    # if the cart count is less <= 0, then redirect to shop\n    cart_items = CartItem.objects.filter(user=current_user)\n    if cart_items.count() <= 0:\n        return redirect('store')",
+        "peekOfCode": "def payments(request):\n    body = json.loads(request.body)\n    order = Order.objects.get(user=request.user, is_ordered=False, order_number=body[\"orderID\"])\n    payment = Payment(\n        user = request.user,\n        payment_id = body[\"transID\"],\n        payment_method = body[\"payment_method\"],\n        amount_paid = order.order_total,\n        status = body[\"status\"],\n    )",
         "detail": "orders.views",
         "documentation": {}
     },
