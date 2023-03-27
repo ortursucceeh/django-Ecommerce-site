@@ -1,4 +1,5 @@
 from datetime import date
+import json
 from django.shortcuts import redirect, render
 
 from carts.models import CartItem
@@ -8,6 +9,8 @@ from orders.models import Order
 
 # Create your views here.
 def payments(request):
+    body = json.loads(request.body)
+    print(body)
     return render(request, "orders/payments.html")
 
 def place_order(request, total=0, quantity=0, tax=0):

@@ -942,6 +942,15 @@
         "documentation": {}
     },
     {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
         "label": "OrderForm",
         "importPath": "orders.forms",
         "description": "orders.forms",
@@ -1811,7 +1820,7 @@
         "kind": 2,
         "importPath": "orders.views",
         "description": "orders.views",
-        "peekOfCode": "def payments(request):\n    return render(request, \"orders/payments.html\")\ndef place_order(request, total=0, quantity=0, tax=0):\n    current_user = request.user\n    # if the cart count is less <= 0, then redirect to shop\n    cart_items = CartItem.objects.filter(user=current_user)\n    if cart_items.count() <= 0:\n        return redirect('store')\n    for cart_item in cart_items:\n        total += (cart_item.product.price * cart_item.quantity)",
+        "peekOfCode": "def payments(request):\n    body = json.loads(request.body)\n    print(body)\n    return render(request, \"orders/payments.html\")\ndef place_order(request, total=0, quantity=0, tax=0):\n    current_user = request.user\n    # if the cart count is less <= 0, then redirect to shop\n    cart_items = CartItem.objects.filter(user=current_user)\n    if cart_items.count() <= 0:\n        return redirect('store')",
         "detail": "orders.views",
         "documentation": {}
     },
