@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 
 from carts.models import CartItem
 from orders.forms import OrderForm
-from orders.models import Order, Payment
+from orders.models import Order, Payment, OrderProduct
 
 
 # Create your views here.
@@ -26,7 +26,25 @@ def payments(request):
     order.save()
     
     # move the cart items to Order Product table
+    cart_items = CartItem.objects.filter(user=request.user)
     
+    for item in cart_items:
+        order_product = OrderProduct()
+        order_product.order = order.id
+        order_product.payment = payment
+        order_product.user = request.user.id
+        order_product.product = item.product
+        order_product.quantity = item.quantity
+        order_product.product_price = item.product.price
+        order_product.ordered = True
+        order_product.save()
+        
+        
+        cart_item = CartItem.objects.get(id=item.id)
+        product_variation = cart_item.variations.all()
+        order_product = OrderProduct.objects.get(id=order_product.id)
+        order_product.variations.set(product_variation)
+        order_product.save()
     # reduce the quantity of this products
     
     # clear cart

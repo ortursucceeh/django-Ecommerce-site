@@ -152,6 +152,30 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -975,6 +999,14 @@
         "documentation": {}
     },
     {
+        "label": "OrderProduct",
+        "importPath": "orders.models",
+        "description": "orders.models",
+        "isExtraImport": true,
+        "detail": "orders.models",
+        "documentation": {}
+    },
+    {
         "label": "Category",
         "importPath": "category.models",
         "description": "category.models",
@@ -1770,11 +1802,38 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "orders.migrations.0003_remove_orderproduct_color_remove_orderproduct_size",
+        "description": "orders.migrations.0003_remove_orderproduct_color_remove_orderproduct_size",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"orders\", \"0002_remove_order_state\"),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name=\"orderproduct\",\n            name=\"color\",\n        ),\n        migrations.RemoveField(",
+        "detail": "orders.migrations.0003_remove_orderproduct_color_remove_orderproduct_size",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "orders.migrations.0004_remove_orderproduct_variation_and_more",
+        "description": "orders.migrations.0004_remove_orderproduct_variation_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"store\", \"0003_rename_variation_category_variation_category_and_more\"),\n        (\"orders\", \"0003_remove_orderproduct_color_remove_orderproduct_size\"),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name=\"orderproduct\",\n            name=\"variation\",\n        ),",
+        "detail": "orders.migrations.0004_remove_orderproduct_variation_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "OrderProductInline",
+        "kind": 6,
+        "importPath": "orders.admin",
+        "description": "orders.admin",
+        "peekOfCode": "class OrderProductInline(admin.TabularInline):\n    model = OrderProduct\n    readonly_fields = ('payment', 'user', 'product', 'quantity', 'product_price', 'ordered')\n    extra = 0\nclass OrderAdmin(admin.ModelAdmin):\n    list_display = [\"order_number\", \"get_full_name\", \"phone\", \"email\", \"city\", \"order_total\",\n                    \"status\", \"tax\", \"is_ordered\"]\n    list_filter = [\"status\", \"is_ordered\"]\n    search_fields = [\"order_number\", \"first_name\", \"last_name\", \"phone\", \"email\"]\n    list_per_page = 20",
+        "detail": "orders.admin",
+        "documentation": {}
+    },
+    {
         "label": "OrderAdmin",
         "kind": 6,
         "importPath": "orders.admin",
         "description": "orders.admin",
-        "peekOfCode": "class OrderAdmin(admin.ModelAdmin):\n    list_display = [\"order_number\", \"get_full_name\", \"phone\", \"email\", \"city\", \"order_total\",\n                    \"status\", \"tax\", \"is_ordered\"]\n    list_filter = [\"status\", \"is_ordered\"]\n    search_fields = [\"order_number\", \"first_name\", \"last_name\", \"phone\", \"email\"]\n    list_per_page = 20\nadmin.site.register(Payment)\nadmin.site.register(Order, OrderAdmin)\nadmin.site.register(OrderProduct)",
+        "peekOfCode": "class OrderAdmin(admin.ModelAdmin):\n    list_display = [\"order_number\", \"get_full_name\", \"phone\", \"email\", \"city\", \"order_total\",\n                    \"status\", \"tax\", \"is_ordered\"]\n    list_filter = [\"status\", \"is_ordered\"]\n    search_fields = [\"order_number\", \"first_name\", \"last_name\", \"phone\", \"email\"]\n    list_per_page = 20\n    inlines = [OrderProductInline]\nadmin.site.register(Payment)\nadmin.site.register(Order, OrderAdmin)\nadmin.site.register(OrderProduct)",
         "detail": "orders.admin",
         "documentation": {}
     },
@@ -1819,7 +1878,7 @@
         "kind": 6,
         "importPath": "orders.models",
         "description": "orders.models",
-        "peekOfCode": "class OrderProduct(models.Model):\n    order = models.ForeignKey(Order, on_delete=models.CASCADE)\n    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True)\n    user = models.ForeignKey(Account, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    variation = models.ForeignKey(Variation, on_delete=models.CASCADE)\n    color = models.CharField(max_length=40)\n    size = models.CharField(max_length=20)\n    quantity = models.IntegerField()\n    product_price = models.FloatField()",
+        "peekOfCode": "class OrderProduct(models.Model):\n    order = models.ForeignKey(Order, on_delete=models.CASCADE)\n    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True)\n    user = models.ForeignKey(Account, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    variations  = models.ManyToManyField(Variation, blank=True)\n    quantity = models.IntegerField()\n    product_price = models.FloatField()\n    ordered = models.BooleanField(default=False)\n    created_at = models.DateTimeField(auto_now_add=True)",
         "detail": "orders.models",
         "documentation": {}
     },
