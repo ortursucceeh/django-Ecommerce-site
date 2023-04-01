@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from carts.models import CartItem
 from orders.forms import OrderForm
 from orders.models import Order, Payment, OrderProduct
+from store.models import Product
 
 
 # Create your views here.
@@ -30,9 +31,9 @@ def payments(request):
     
     for item in cart_items:
         order_product = OrderProduct()
-        order_product.order = order.id
+        order_product.order = order
         order_product.payment = payment
-        order_product.user = request.user.id
+        order_product.user = request.user
         order_product.product = item.product
         order_product.quantity = item.quantity
         order_product.product_price = item.product.price
@@ -45,10 +46,14 @@ def payments(request):
         order_product = OrderProduct.objects.get(id=order_product.id)
         order_product.variations.set(product_variation)
         order_product.save()
-    # reduce the quantity of this products
+        
+        # reduce the quantity of this products
+        product = Product.objects.get(id=item.product_id)
+        product.stock -= item.quantity
+        product.save()
     
     # clear cart
-    
+    CartItem.objects.filter(user=request.user).delete()
     # send order received email to customer
     
     # send order number and transaction id back to sendData method via JsonResponse
