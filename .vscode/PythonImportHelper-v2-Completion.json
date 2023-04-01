@@ -537,6 +537,14 @@
         "documentation": {}
     },
     {
+        "label": "JsonResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
         "label": "redirect",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -1919,7 +1927,7 @@
         "kind": 5,
         "importPath": "orders.urls",
         "description": "orders.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"place_order/\", views.place_order, name=\"place_order\"),\n    path(\"payments/\", views.payments, name=\"payments\"),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"place_order/\", views.place_order, name=\"place_order\"),\n    path(\"payments/\", views.payments, name=\"payments\"),\n    path(\"order_complete/\", views.order_complete, name=\"order_complete\"),\n]",
         "detail": "orders.urls",
         "documentation": {}
     },
@@ -1938,6 +1946,15 @@
         "importPath": "orders.views",
         "description": "orders.views",
         "peekOfCode": "def place_order(request, total=0, quantity=0, tax=0):\n    current_user = request.user\n    # if the cart count is less <= 0, then redirect to shop\n    cart_items = CartItem.objects.filter(user=current_user)\n    if cart_items.count() <= 0:\n        return redirect('store')\n    for cart_item in cart_items:\n        total += (cart_item.product.price * cart_item.quantity)\n        quantity += cart_item.quantity\n    tax = (2 * total) / 100",
+        "detail": "orders.views",
+        "documentation": {}
+    },
+    {
+        "label": "order_complete",
+        "kind": 2,
+        "importPath": "orders.views",
+        "description": "orders.views",
+        "peekOfCode": "def order_complete(request):\n    order_number = request.GET.get(\"order_number\")\n    transID = request.GET.get(\"payment_id\")\n    try:\n        order = Order.objects.get(order_number=order_number, is_ordered=True)\n        ordered_products = OrderProduct.objects.filter(order=order)\n        subtotal = 0\n        for i in ordered_products:\n            subtotal += i.product_price * i.quantity\n        payment = Payment.objects.get(payment_id=transID)",
         "detail": "orders.views",
         "documentation": {}
     },

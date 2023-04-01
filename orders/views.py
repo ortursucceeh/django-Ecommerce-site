@@ -1,6 +1,7 @@
 from datetime import date
 import json
 from django.conf import settings
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
 from carts.models import CartItem
@@ -65,8 +66,14 @@ def payments(request):
     })
     send_email = EmailMessage(subject=mail_subject, body=email_body, from_email=settings.DEFAULT_FROM_EMAIL, to=[request.user.email])
     send_email.send()
+    
     # send order number and transaction id back to sendData method via JsonResponse
-    return render(request, "orders/payments.html")
+    data = {
+        "order_number": order.order_number,
+        "transID": payment.payment_id
+    }
+    
+    return JsonResponse(data)
 
 def place_order(request, total=0, quantity=0, tax=0):
     current_user = request.user
@@ -120,3 +127,30 @@ def place_order(request, total=0, quantity=0, tax=0):
             return render(request, "orders/payments.html", context)
     else:
         return redirect("checkout")
+    
+def order_complete(request):
+    order_number = request.GET.get("order_number")
+    transID = request.GET.get("payment_id")
+    
+    try:
+        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        ordered_products = OrderProduct.objects.filter(order=order)
+        
+        subtotal = 0
+        for i in ordered_products:
+            subtotal += i.product_price * i.quantity
+            
+        payment = Payment.objects.get(payment_id=transID)
+        context = {
+            "order": order,
+            "ordered_products": ordered_products,
+            "order_number": order.order_number,
+            "transID": payment.payment_id,
+            "subtotal": subtotal,
+            "payment": payment
+        }
+        return render(request, "orders/order_complete.html", context)
+
+    except (Payment.DoesNotExist, Order.DoesNotExist):
+        return redirect("home")
+        
