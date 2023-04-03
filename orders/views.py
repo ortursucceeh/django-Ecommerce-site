@@ -1,5 +1,6 @@
-from datetime import date
 import json
+from datetime import date
+
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import redirect, render

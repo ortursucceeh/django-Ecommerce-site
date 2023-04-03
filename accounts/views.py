@@ -1,10 +1,9 @@
-from django.http import HttpRequest
+import requests
 from django.shortcuts import redirect, render
 from django.contrib import messages, auth
 from accounts.models import Account
 from django.contrib.auth.decorators import login_required
 
-import requests
 
 # Email verification
 from django.contrib.sites.shortcuts import get_current_site
