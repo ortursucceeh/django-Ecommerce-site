@@ -409,6 +409,14 @@
         "documentation": {}
     },
     {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
         "label": "AbstractBaseUser",
         "importPath": "django.contrib.auth.models",
         "description": "django.contrib.auth.models",
@@ -957,6 +965,14 @@
     },
     {
         "label": "Product",
+        "importPath": "store.models",
+        "description": "store.models",
+        "isExtraImport": true,
+        "detail": "store.models",
+        "documentation": {}
+    },
+    {
+        "label": "ReviewRating",
         "importPath": "store.models",
         "description": "store.models",
         "isExtraImport": true,
@@ -2051,6 +2067,15 @@
         "description": "store.apps",
         "peekOfCode": "class StoreConfig(AppConfig):\n    default_auto_field = \"django.db.models.BigAutoField\"\n    name = \"store\"",
         "detail": "store.apps",
+        "documentation": {}
+    },
+    {
+        "label": "ReviewForm",
+        "kind": 6,
+        "importPath": "store.forms",
+        "description": "store.forms",
+        "peekOfCode": "class ReviewForm(forms.ModelForm):\n    class Meta:\n        model = ReviewRating\n        fields = [\"subject\", \"review\", \"rating\"]",
+        "detail": "store.forms",
         "documentation": {}
     },
     {
