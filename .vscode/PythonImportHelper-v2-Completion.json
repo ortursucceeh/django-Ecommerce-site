@@ -1135,6 +1135,14 @@
         "documentation": {}
     },
     {
+        "label": "Count",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
         "label": "Q",
         "importPath": "django.db.models",
         "description": "django.db.models",
@@ -2162,7 +2170,7 @@
         "kind": 2,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "def product_detail(request, category_slug, product_slug):\n    try:\n        product = Product.objects.get(category__slug=category_slug, slug=product_slug)\n        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=product).exists()\n    except Exception as e:\n        raise e\n    try:\n        order_product = OrderProduct.objects.filter(user=request.user, product_id=product.id).exists()\n    except OrderProduct.DoesNotExist:\n        order_product = None",
+        "peekOfCode": "def product_detail(request, category_slug, product_slug):\n    try:\n        product = Product.objects.get(category__slug=category_slug, slug=product_slug)\n        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=product).exists()\n    except Exception as e:\n        raise e\n    if request.user.is_authenticated:\n        try:\n            order_product = OrderProduct.objects.filter(user=request.user, product_id=product.id).exists()\n        except OrderProduct.DoesNotExist:",
         "detail": "store.views",
         "documentation": {}
     },

@@ -38,5 +38,5 @@ label:hover ~ input:checked ~ label {
 }
 
 .rating-star i {
-    color: rgb(224, 202, 2) !important;
+    color: #ffb503 !important;
 }
