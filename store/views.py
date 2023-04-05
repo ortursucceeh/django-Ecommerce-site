@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 
 from carts.models import CartItem
+from orders.models import OrderProduct
 from store.forms import ReviewForm
 from .models import Product, ReviewRating
 from category.models import Category
@@ -40,9 +41,15 @@ def product_detail(request, category_slug, product_slug):
     except Exception as e:
         raise e
     
+    try:
+        order_product = OrderProduct.objects.filter(user=request.user, product_id=product.id).exists()
+    except OrderProduct.DoesNotExist:
+        order_product = None
+        
     context = {
         "product": product,
-        "in_cart": in_cart
+        "in_cart": in_cart,
+        "order_product": order_product
     }
     return render(request, "store/product_detail.html", context)
 
