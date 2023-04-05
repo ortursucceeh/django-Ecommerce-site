@@ -45,11 +45,16 @@ def product_detail(request, category_slug, product_slug):
         order_product = OrderProduct.objects.filter(user=request.user, product_id=product.id).exists()
     except OrderProduct.DoesNotExist:
         order_product = None
-        
+    
+    
+    # get reviews
+    
+    reviews = ReviewRating.objects.filter(product_id=product.id, status=True)
     context = {
         "product": product,
         "in_cart": in_cart,
-        "order_product": order_product
+        "order_product": order_product,
+        "reviews": reviews
     }
     return render(request, "store/product_detail.html", context)
 
@@ -87,5 +92,6 @@ def submit_review(request, product_id):
                 data.ip = request.META.get('REMOTE_ADDR')
                 data.product_id = product_id
                 data.user_id = request.user.id 
+                data.save()
                 messages.success(request, "Thank you! Your review has been submitted!")
                 return redirect(url)
