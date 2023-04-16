@@ -908,6 +908,14 @@
         "documentation": {}
     },
     {
+        "label": "OrderProduct",
+        "importPath": "orders.models",
+        "description": "orders.models",
+        "isExtraImport": true,
+        "detail": "orders.models",
+        "documentation": {}
+    },
+    {
         "label": "Order",
         "importPath": "orders.models",
         "description": "orders.models",
@@ -1462,6 +1470,15 @@
         "importPath": "accounts.views",
         "description": "accounts.views",
         "peekOfCode": "def change_password(request):\n    if request.method == \"POST\":\n        current_password = request.post.get('current_password')\n        new_password = request.post.get('new_password')\n        confirm_password = request.post.get('confirm_password')\n        user = Account.objects.get(username__exact=request.user.username)\n        if new_password == confirm_password:\n            success = user.check_password(current_password)\n            if success:\n                user.set_password(new_password)",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
+        "label": "order_detail",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def order_detail(request, order_id):\n    order_detail  = OrderProduct.objects.filter(order__order_number=order_id) \n    order = Order.objects.get(order_number=order_id)\n    subtotal = sum(i.product_price * i.quantity for i in order_detail)\n    context = {\n        \"order_detail\": order_detail,\n        \"order\": order,\n        \"subtotal\": subtotal\n    }\n    return render(request, \"accounts/order_detail.html\", context)",
         "detail": "accounts.views",
         "documentation": {}
     },

@@ -15,7 +15,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.conf import settings
 
-from orders.models import Order
+from orders.models import Order, OrderProduct
 
 
 from .forms import RegistrationForm, UserForm, UserProfileForm
@@ -293,3 +293,17 @@ def change_password(request):
             messages.error(request, "Password does not match!")
             return redirect("change_password")
     return render(request, "accounts/change_password.html")
+
+
+@login_required(login_url="login")
+def order_detail(request, order_id):
+    order_detail  = OrderProduct.objects.filter(order__order_number=order_id) 
+    order = Order.objects.get(order_number=order_id)
+    subtotal = sum(i.product_price * i.quantity for i in order_detail)
+    context = {
+        "order_detail": order_detail,
+        "order": order,
+        "subtotal": subtotal
+    }
+    return render(request, "accounts/order_detail.html", context)
+    
