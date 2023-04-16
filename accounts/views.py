@@ -178,8 +178,11 @@ def activate_user(request, uidb64, token):
 def dashboard(request):
     orders = Order.objects.order_by("-created_at").filter(user_id=request.user.id, is_ordered=True)
     orders_count = orders.count()
+    
+    userprofile = UserProfile.objects.get(user_id=request.user.id)
     context = {
         "orders_count": orders_count,
+        "userprofile": userprofile
     }
     return render(request, "accounts/dashboard.html", context)
 
@@ -272,9 +275,9 @@ def edit_profile(request):
 @login_required(login_url="login")
 def change_password(request):
     if request.method == "POST":
-        current_password = request.post.get('current_password')
-        new_password = request.post.get('new_password')
-        confirm_password = request.post.get('confirm_password')
+        current_password = request.POST['current_password']
+        new_password = request.POST['new_password']
+        confirm_password = request.POST['confirm_password']
         
         user = Account.objects.get(username__exact=request.user.username)
         
