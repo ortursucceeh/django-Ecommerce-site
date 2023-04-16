@@ -1337,6 +1337,15 @@
         "documentation": {}
     },
     {
+        "label": "my_orders",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def my_orders(request):\n    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by(\"-created_at\")\n    context = {\n        'orders': orders\n    }\n    return render(request, \"accounts/my_orders.html\", context)",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
         "label": "@login_required(login_url",
         "kind": 5,
         "importPath": "accounts.views",
