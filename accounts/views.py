@@ -1,3 +1,4 @@
+import django.urls
 import requests
 
 from django.contrib import messages, auth
@@ -66,6 +67,12 @@ def register(request):
                                 email=email, username=username, password=password)
             user.phone_number = phone_number
             user.save()
+            
+            # Create user profile
+            profile = UserProfile()
+            profile.user_id = user.id
+            profile.profile_picture = "default/default_user.jpg"
+            profile.save()
             
             send_verify_email(user, request)
             
