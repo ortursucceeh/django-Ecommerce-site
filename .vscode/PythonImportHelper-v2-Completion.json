@@ -1443,7 +1443,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def my_orders(request):\n    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by(\"-created_at\")\n    context = {\n        'orders': orders\n    }\n    return render(request, \"accounts/my_orders.html\", context)\ndef edit_profile(request):\n    userprofile = get_object_or_404(UserProfile, user=request.user)\n    if request.method == \"POST\":\n        user_form = UserForm(request.POST, instance=request.user)",
+        "peekOfCode": "def my_orders(request):\n    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by(\"-created_at\")\n    context = {\n        'orders': orders\n    }\n    return render(request, \"accounts/my_orders.html\", context)\n@login_required(login_url=\"login\")\ndef edit_profile(request):\n    userprofile = get_object_or_404(UserProfile, user=request.user)\n    if request.method == \"POST\":",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -1453,6 +1453,15 @@
         "importPath": "accounts.views",
         "description": "accounts.views",
         "peekOfCode": "def edit_profile(request):\n    userprofile = get_object_or_404(UserProfile, user=request.user)\n    if request.method == \"POST\":\n        user_form = UserForm(request.POST, instance=request.user)\n        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)\n        if user_form.is_valid() and profile_form.is_valid():\n            user_form.save()\n            profile_form.save()\n            messages.success(request, \"Your profile has been updated\")\n            return redirect(\"edit_profile\")",
+        "detail": "accounts.views",
+        "documentation": {}
+    },
+    {
+        "label": "change_password",
+        "kind": 2,
+        "importPath": "accounts.views",
+        "description": "accounts.views",
+        "peekOfCode": "def change_password(request):\n    if request.method == \"POST\":\n        current_password = request.post.get('current_password')\n        new_password = request.post.get('new_password')\n        confirm_password = request.post.get('confirm_password')\n        user = Account.objects.get(username__exact=request.user.username)\n        if new_password == confirm_password:\n            success = user.check_password(current_password)\n            if success:\n                user.set_password(new_password)",
         "detail": "accounts.views",
         "documentation": {}
     },
