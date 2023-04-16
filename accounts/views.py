@@ -14,6 +14,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.conf import settings
 
+from orders.models import Order
+
 
 from .forms import RegistrationForm
 from carts.views import _cart_id
@@ -167,7 +169,12 @@ def activate_user(request, uidb64, token):
     
 @login_required  
 def dashboard(request):
-    return render(request, "accounts/dashboard.html")
+    orders = Order.objects.order_by("-created_at").filter(user_id=request.user.id, is_ordered=True)
+    orders_count = orders.count()
+    context = {
+        "orders_count": orders_count,
+    }
+    return render(request, "accounts/dashboard.html", context)
 
 
 def forgotPassword(request):

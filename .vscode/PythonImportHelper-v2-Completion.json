@@ -834,6 +834,46 @@
         "documentation": {}
     },
     {
+        "label": "Order",
+        "importPath": "orders.models",
+        "description": "orders.models",
+        "isExtraImport": true,
+        "detail": "orders.models",
+        "documentation": {}
+    },
+    {
+        "label": "Order",
+        "importPath": "orders.models",
+        "description": "orders.models",
+        "isExtraImport": true,
+        "detail": "orders.models",
+        "documentation": {}
+    },
+    {
+        "label": "Payment",
+        "importPath": "orders.models",
+        "description": "orders.models",
+        "isExtraImport": true,
+        "detail": "orders.models",
+        "documentation": {}
+    },
+    {
+        "label": "OrderProduct",
+        "importPath": "orders.models",
+        "description": "orders.models",
+        "isExtraImport": true,
+        "detail": "orders.models",
+        "documentation": {}
+    },
+    {
+        "label": "OrderProduct",
+        "importPath": "orders.models",
+        "description": "orders.models",
+        "isExtraImport": true,
+        "detail": "orders.models",
+        "documentation": {}
+    },
+    {
         "label": "carts.views",
         "kind": 6,
         "isExtraImport": true,
@@ -1079,38 +1119,6 @@
         "documentation": {}
     },
     {
-        "label": "Order",
-        "importPath": "orders.models",
-        "description": "orders.models",
-        "isExtraImport": true,
-        "detail": "orders.models",
-        "documentation": {}
-    },
-    {
-        "label": "Payment",
-        "importPath": "orders.models",
-        "description": "orders.models",
-        "isExtraImport": true,
-        "detail": "orders.models",
-        "documentation": {}
-    },
-    {
-        "label": "OrderProduct",
-        "importPath": "orders.models",
-        "description": "orders.models",
-        "isExtraImport": true,
-        "detail": "orders.models",
-        "documentation": {}
-    },
-    {
-        "label": "OrderProduct",
-        "importPath": "orders.models",
-        "description": "orders.models",
-        "isExtraImport": true,
-        "detail": "orders.models",
-        "documentation": {}
-    },
-    {
         "label": "Category",
         "importPath": "category.models",
         "description": "category.models",
@@ -1297,7 +1305,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def dashboard(request):\n    return render(request, \"accounts/dashboard.html\")\ndef forgotPassword(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        if Account.objects.filter(email=email).exists():\n            user = Account.objects.get(email__exact=email)\n            send_reset_password(user, request)\n            messages.success(request, \"Password reset email has been sent to your email address!\")\n            return redirect(\"login\")",
+        "peekOfCode": "def dashboard(request):\n    orders = Order.objects.order_by(\"-created_at\").filter(user_id=request.user.id, is_ordered=True)\n    orders_count = orders.count()\n    context = {\n        \"orders_count\": orders_count,\n    }\n    return render(request, \"accounts/dashboard.html\", context)\ndef forgotPassword(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]",
         "detail": "accounts.views",
         "documentation": {}
     },
