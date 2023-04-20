@@ -71,6 +71,22 @@ docs = ["furo (>=2021.8.17b43,<2021.9.0)", "sphinx (>=3.5.0)", "sphinx-notfound-
 testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)"]
 
 [[package]]
+name = "django-session-timeout"
+version = "0.1.0"
+description = "Middleware to expire sessions after specific amount of time"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Django = ">=1.11"
+six = ">=1.12"
+
+[package.extras]
+docs = ["sphinx (>=1.8.4)"]
+test = ["coverage[toml] (==5.0.3)", "flake8 (==3.7.9)", "flake8-blind-except (==0.1.1)", "flake8-debugger (==3.1.0)", "freezegun (==0.3.15)", "isort[pyproject] (==4.3.21)", "pytest (==5.3.5)", "pytest-cov (==2.8.1)", "pytest-django (==3.8.0)"]
+
+[[package]]
 name = "idna"
 version = "3.4"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -148,7 +164,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "4e7d497a9dfb249733a7b6e3122f956d95744ea2e4f6f45526f4373b17e9b512"
+content-hash = "c4b7a1675b9acb2ef61b22ecb9fcfda56d08d94c5fd12d65e5e359c411eb4f7c"
 
 [metadata.files]
 asgiref = [
@@ -246,6 +262,10 @@ django-admin-thumbnails = [
 django-environ = [
     {file = "django-environ-0.10.0.tar.gz", hash = "sha256:b3559a91439c9d774a9e0c1ced872364772c612cdf6dc919506a2b13f7a77225"},
     {file = "django_environ-0.10.0-py2.py3-none-any.whl", hash = "sha256:510f8c9c1d0a38b0815f91504270c29440a0cf44fab07f55942fa8d31bbb9be6"},
+]
+django-session-timeout = [
+    {file = "django-session-timeout-0.1.0.tar.gz", hash = "sha256:648fe4ffa762f3bb62ce7a9ed1bbba8e37648158d555f18a880471982941084c"},
+    {file = "django_session_timeout-0.1.0-py2.py3-none-any.whl", hash = "sha256:e01b2502d4b9995edb93be1a66f304d0314cecb4f671ddc26cb4525a07e56282"},
 ]
 idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
