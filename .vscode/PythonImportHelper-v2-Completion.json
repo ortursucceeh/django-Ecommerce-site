@@ -256,6 +256,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -1181,6 +1197,15 @@
         "description": "orders.forms",
         "isExtraImport": true,
         "detail": "orders.forms",
+        "documentation": {}
+    },
+    {
+        "label": "admin_thumbnails",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "admin_thumbnails",
+        "description": "admin_thumbnails",
+        "detail": "admin_thumbnails",
         "documentation": {}
     },
     {
@@ -2221,11 +2246,29 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "store.migrations.0005_productgallery",
+        "description": "store.migrations.0005_productgallery",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"store\", \"0004_reviewrating\"),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name=\"ProductGallery\",\n            fields=[\n                (\n                    \"id\",",
+        "detail": "store.migrations.0005_productgallery",
+        "documentation": {}
+    },
+    {
+        "label": "ProductGalleryInline",
+        "kind": 6,
+        "importPath": "store.admin",
+        "description": "store.admin",
+        "peekOfCode": "class ProductGalleryInline(admin.TabularInline):\n    model = ProductGallery\n    extra = 1\nclass ProductAdmin(admin.ModelAdmin):\n    list_display = (\"name\", \"price\", \"stock\", \"category\", \"modified_date\")\n    prepopulated_fields = {\"slug\": (\"name\",)}\n    inlines = [ProductGalleryInline]\nclass VariationAdmin(admin.ModelAdmin):\n    list_display = (\"product\", \"category\", \"value\", \"is_active\")\n    list_editable = (\"is_active\",)",
+        "detail": "store.admin",
+        "documentation": {}
+    },
+    {
         "label": "ProductAdmin",
         "kind": 6,
         "importPath": "store.admin",
         "description": "store.admin",
-        "peekOfCode": "class ProductAdmin(admin.ModelAdmin):\n    list_display = (\"name\", \"price\", \"stock\", \"category\", \"modified_date\")\n    prepopulated_fields = {\"slug\": (\"name\",)}\nclass VariationAdmin(admin.ModelAdmin):\n    list_display = (\"product\", \"category\", \"value\", \"is_active\")\n    list_editable = (\"is_active\",)\n    list_filter = (\"product\", \"category\", \"value\")\nadmin.site.register(Product, ProductAdmin)\nadmin.site.register(Variation, VariationAdmin)\nadmin.site.register(ReviewRating)",
+        "peekOfCode": "class ProductAdmin(admin.ModelAdmin):\n    list_display = (\"name\", \"price\", \"stock\", \"category\", \"modified_date\")\n    prepopulated_fields = {\"slug\": (\"name\",)}\n    inlines = [ProductGalleryInline]\nclass VariationAdmin(admin.ModelAdmin):\n    list_display = (\"product\", \"category\", \"value\", \"is_active\")\n    list_editable = (\"is_active\",)\n    list_filter = (\"product\", \"category\", \"value\")\nadmin.site.register(Product, ProductAdmin)\nadmin.site.register(Variation, VariationAdmin)",
         "detail": "store.admin",
         "documentation": {}
     },
@@ -2234,7 +2277,7 @@
         "kind": 6,
         "importPath": "store.admin",
         "description": "store.admin",
-        "peekOfCode": "class VariationAdmin(admin.ModelAdmin):\n    list_display = (\"product\", \"category\", \"value\", \"is_active\")\n    list_editable = (\"is_active\",)\n    list_filter = (\"product\", \"category\", \"value\")\nadmin.site.register(Product, ProductAdmin)\nadmin.site.register(Variation, VariationAdmin)\nadmin.site.register(ReviewRating)",
+        "peekOfCode": "class VariationAdmin(admin.ModelAdmin):\n    list_display = (\"product\", \"category\", \"value\", \"is_active\")\n    list_editable = (\"is_active\",)\n    list_filter = (\"product\", \"category\", \"value\")\nadmin.site.register(Product, ProductAdmin)\nadmin.site.register(Variation, VariationAdmin)\nadmin.site.register(ReviewRating)\nadmin.site.register(ProductGallery)",
         "detail": "store.admin",
         "documentation": {}
     },
@@ -2288,7 +2331,16 @@
         "kind": 6,
         "importPath": "store.models",
         "description": "store.models",
-        "peekOfCode": "class ReviewRating(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    user = models.ForeignKey(Account, on_delete=models.CASCADE)\n    subject = models.CharField(max_length=100, blank=True)\n    review = models.TextField(max_length=500, blank=True)\n    rating = models.FloatField()\n    ip = models.CharField(max_length=20, blank=True)\n    status = models.BooleanField(default=True)\n    created_date = models.DateTimeField(auto_now_add=True)\n    updated_date = models.DateTimeField(auto_now=True)",
+        "peekOfCode": "class ReviewRating(models.Model):\n    product       = models.ForeignKey(Product, on_delete=models.CASCADE)\n    user          = models.ForeignKey(Account, on_delete=models.CASCADE)\n    subject       = models.CharField(max_length=100, blank=True)\n    review        = models.TextField(max_length=500, blank=True)\n    rating        = models.FloatField()\n    ip            = models.CharField(max_length=20, blank=True)\n    status        = models.BooleanField(default=True)\n    created_date  = models.DateTimeField(auto_now_add=True)\n    updated_date  = models.DateTimeField(auto_now=True)",
+        "detail": "store.models",
+        "documentation": {}
+    },
+    {
+        "label": "ProductGallery",
+        "kind": 6,
+        "importPath": "store.models",
+        "description": "store.models",
+        "peekOfCode": "class ProductGallery(models.Model):\n    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)\n    image = models.ImageField(upload_to=\"store/products/\", max_length=255)\n    def __sts__(self):\n        return self.product.name\n    class Meta:\n        verbose_name = \"product_gallery\"\n        verbose_name_plural = \"product gallery\"",
         "detail": "store.models",
         "documentation": {}
     },
