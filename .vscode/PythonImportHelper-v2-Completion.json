@@ -1069,6 +1069,14 @@
         "documentation": {}
     },
     {
+        "label": "ReviewRating",
+        "importPath": "store.models",
+        "description": "store.models",
+        "isExtraImport": true,
+        "detail": "store.models",
+        "documentation": {}
+    },
+    {
         "label": "Product",
         "importPath": "store.models",
         "description": "store.models",
@@ -2070,7 +2078,7 @@
         "kind": 2,
         "importPath": "mysite.views",
         "description": "mysite.views",
-        "peekOfCode": "def home(request):\n    products = Product.objects.all().filter(is_avaliable=True)\n    context = {\n        \"products\": products\n    }\n    return render(request, \"mysite/home.html\", context)",
+        "peekOfCode": "def home(request):\n    products = Product.objects.all().filter(is_avaliable=True).order_by(\"created_date\")\n    # get reviews\n    for product in products:\n        reviews = ReviewRating.objects.filter(product_id=product.id, status=True)\n    context = {\n        \"products\": products,\n        \"reviews\": reviews\n    }\n    return render(request, \"mysite/home.html\", context)",
         "detail": "mysite.views",
         "documentation": {}
     },
